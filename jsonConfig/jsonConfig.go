@@ -6,7 +6,7 @@ package jsonConfig
 
 import (
 	"encoding/json"
-	"github.com/Cergoo/gol/err"
+	"github.com/catgatp/gol/err"
 	"io/ioutil"
 )
 
