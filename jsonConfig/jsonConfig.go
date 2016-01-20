@@ -33,6 +33,12 @@ func Load(fromPath string, toVar interface{}) {
 	err.Panic(json.Unmarshal(file, toVar))
 }
 
+func LoadBuf(file []byte, toVar interface{}) {
+
+	file = RemoveComment(file)
+	err.Panic(json.Unmarshal(file, toVar))
+}
+
 // RemoveComment remove comments from a source .json
 func RemoveComment(source []byte) (result []byte) {
 	var (
