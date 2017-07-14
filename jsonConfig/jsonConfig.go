@@ -6,7 +6,6 @@ package jsonConfig
 
 import (
 	"encoding/json"
-	"github.com/catgatp/gol/err"
 	"io/ioutil"
 )
 
@@ -18,25 +17,34 @@ import (
 */
 
 // Save config to json format file
-func Save(fromVar interface{}, toPath string) {
+func Save(fromVar interface{}, toPath string) error {
 	data, e := json.Marshal(fromVar)
-	err.Panic(e)
-	e = ioutil.WriteFile(toPath, data, 0664)
-	err.Panic(e)
+	//err.Panic(e)
+	if e != nil {
+		return e
+	}
+	return ioutil.WriteFile(toPath, data, 0664)
+	//err.Panic(e)
+
 }
 
 // Load load & remove comments from source .json file
-func Load(fromPath string, toVar interface{}) {
+func Load(fromPath string, toVar interface{}) error {
 	file, e := ioutil.ReadFile(fromPath)
-	err.Panic(e)
+	//err.Panic(e)
+	if e != nil {
+		return e
+	}
 	file = RemoveComment(file)
-	err.Panic(json.Unmarshal(file, toVar))
+	return (json.Unmarshal(file, toVar))
 }
 
-func LoadBuf(file []byte, toVar interface{}) {
+func LoadBuf(file []byte, toVar interface{}) error {
 
 	file = RemoveComment(file)
-	err.Panic(json.Unmarshal(file, toVar))
+	//err.Panic(json.Unmarshal(file, toVar))
+	return json.Unmarshal(file, toVar)
+
 }
 
 // RemoveComment remove comments from a source .json
